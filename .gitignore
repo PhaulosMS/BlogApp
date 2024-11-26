@@ -23,6 +23,9 @@
 # misc
 .DS_Store
 *.pem
+.prettierrc
+bun.lockb
+components.json
 
 # debug
 npm-debug.log*
