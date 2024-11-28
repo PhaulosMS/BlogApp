@@ -27,7 +27,7 @@ const RegisterForm = () => {
         .min(3, 'Username too short must be above 3 letters')
         .max(15, 'Username max length is 15'),
       Password: z.string().min(3, 'Password too short').regex(regex),
-      confirmPassword: z.string(),
+      confirmPassword: z.string().regex(regex),
     })
     .refine((data) => data.Password === data.confirmPassword, {
       message: 'Passwords do not match',
@@ -44,9 +44,25 @@ const RegisterForm = () => {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log('smth');
-    console.log(data);
+  const onSubmit = async (data: {
+    Username: string;
+    Password: string;
+    Email: string;
+  }) => {
+    try {
+      const response = await fetch('/api/users/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      console.log(result.message);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (

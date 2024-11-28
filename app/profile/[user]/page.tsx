@@ -6,9 +6,9 @@ import { useParams } from 'next/navigation';
 // Show your profie
 // get blogs you posted
 
-const page = () => {
+const Profile = () => {
   const params = useParams();
   return <div>{params.user}</div>;
 };
 
-export default page;
+export default Profile;
