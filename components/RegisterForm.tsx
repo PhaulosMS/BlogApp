@@ -15,6 +15,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { UserData } from '@/app/types/types';
+import { createUser } from './services';
 
 const RegisterForm = () => {
   const regex: RegExp = /^[A-Za-z0-9!"£$%^&*€]+$/g;
@@ -27,9 +29,9 @@ const RegisterForm = () => {
         .min(3, 'Username too short must be above 3 letters')
         .max(15, 'Username max length is 15'),
       Password: z.string().min(3, 'Password too short').regex(regex),
-      confirmPassword: z.string().regex(regex),
+      ConfirmPassword: z.string().regex(regex),
     })
-    .refine((data) => data.Password === data.confirmPassword, {
+    .refine((data) => data.Password === data.ConfirmPassword, {
       message: 'Passwords do not match',
       path: ['confirmPassword'],
     });
@@ -40,26 +42,14 @@ const RegisterForm = () => {
       Email: '',
       Username: '',
       Password: '',
-      confirmPassword: '',
+      ConfirmPassword: '',
     },
   });
 
-  const onSubmit = async (data: {
-    Username: string;
-    Password: string;
-    Email: string;
-  }) => {
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-      const response = await fetch('/api/users/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-      console.log(result.message);
+      const response = await (await createUser(data as UserData)).json();
+      console.log(response.message);
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -113,7 +103,7 @@ const RegisterForm = () => {
         ></FormField>
         <FormField
           control={form.control}
-          {...form.register('confirmPassword')}
+          {...form.register('ConfirmPassword')}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
