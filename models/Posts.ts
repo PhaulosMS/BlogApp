@@ -1,13 +1,14 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema, Model, mongo } from 'mongoose';
 
 interface Post extends Document {
+  OwnerId: mongoose.Types.ObjectId;
   Title: string;
   Content: string;
 }
 
-const postSchema: Schema = new mongoose.Schema(
+const postSchema: Schema<Post> = new mongoose.Schema(
   {
-    OnwerId: {
+    OwnerId: {
       type: Schema.Types.ObjectId,
       ref: 'Users',
       required: true,
@@ -24,7 +25,7 @@ const postSchema: Schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Posts =
+const Posts: Model<Post> =
   mongoose.models.Posts || mongoose.model<Post>('Posts', postSchema);
 
 export default Posts;

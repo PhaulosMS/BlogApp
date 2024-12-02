@@ -5,6 +5,7 @@ export type UserData = {
   ConfirmPassword: string;
 };
 export type PostData = {
+  OwnerId: string;
   Title: string;
   Content: string;
 };

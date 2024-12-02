@@ -6,9 +6,9 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   try {
     await dbConnect();
-    const { Title, Content } = (await req.json()) as PostData;
+    const { OwnerId, Title, Content } = (await req.json()) as PostData;
 
-    await Posts.create({ Title, Content });
+    await Posts.create({ OwnerId, Title, Content });
     return NextResponse.json(
       { message: 'Post created successfully' },
       { status: 201 }
