@@ -1,4 +1,4 @@
-import { LoginData, PostData, SignupData } from '@/app/types/types';
+import { LoginData, PostData, SignupData } from '@/types/types';
 
 const BASE_URL = process.env.API_BASE_URL;
 
@@ -38,6 +38,12 @@ export const loginUser = async (data: LoginData) => {
   });
 };
 
+export const logoutUser = async () => {
+  return await fetch(`/api/users/logout`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+};
 export const createPost = async (data: PostData) => {
   return await fetch(`/api/posts/`, {
     method: 'POST',

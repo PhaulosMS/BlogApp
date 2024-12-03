@@ -1,4 +1,4 @@
-import { PostData } from '@/app/types/types';
+import { PostData } from '@/types/types';
 import React from 'react';
 
 const Post = ({ OwnerId, Title, Content, createdAt, updatedAt }: PostData) => {

@@ -7,10 +7,6 @@ import LoginForm from '@/components/LoginForm';
 import CreatePostForm from '@/components/CreatePostForm';
 
 export default function Home() {
-  const IsLoggedIn: boolean = false;
-
-  // flex min-h-screen flex-col items-center justify-between p-24 bg-green-500
-
   return (
     <div className="m-4">
       <div className="flex flex-col max-h-screen items-center p-24">

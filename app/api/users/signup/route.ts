@@ -3,7 +3,7 @@ import Users from '@/models/Users';
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import generateTokenAndSetCookie from '@/lib/generateToken';
-import { SignupData } from '@/app/types/types';
+import { SignupData } from '@/types/types';
 
 export async function POST(req: Request) {
   try {

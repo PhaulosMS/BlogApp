@@ -13,8 +13,8 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from './ui/textarea';
-import { PostData } from '@/app/types/types';
-import { createPost } from './services';
+import { PostData } from '@/types/types';
+import { createPost } from '../services';
 
 const CreatePostForm = () => {
   const form = useForm<PostData>({

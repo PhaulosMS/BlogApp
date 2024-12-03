@@ -1,4 +1,4 @@
-import { PostData } from '@/app/types/types';
+import { PostData } from '@/types/types';
 import dbConnect from '@/lib/dbConnect';
 import Posts from '@/models/Posts';
 import { NextResponse } from 'next/server';

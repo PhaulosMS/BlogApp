@@ -1,5 +1,4 @@
 'use client';
-
 import React from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -14,8 +13,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { createUser } from './services';
-import { SignupData, signUpSchema } from '@/app/types/types';
+import { createUser } from '../services';
+import { SignupData, signUpSchema } from '@/types/types';
 
 const RegisterForm = () => {
   const form = useForm<SignupData>({

@@ -1,6 +1,6 @@
 import React from 'react';
-import { getAllPosts } from './services';
-import { PostData } from '@/app/types/types';
+import { getAllPosts } from '../services';
+import { PostData } from '@/types/types';
 import Post from './Post';
 
 const Posts = async () => {

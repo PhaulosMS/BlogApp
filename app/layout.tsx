@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import Navarbar from '@/components/Navarbar';
+import { logoutUser } from '@/services/index';
+import { useIsLoggedInStore } from '@/stores/loggedInStore';
+import React from 'react';
 
 const geistSans = localFont({
   src: '../fonts/GeistVF.woff',

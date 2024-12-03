@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useIsLoggedInStore } from '@/stores/loggedInStore';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -15,10 +16,12 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { loginUser } from './services';
-import { LoginData, loginSchema } from '@/app/types/types';
+import { loginUser } from '../services';
+import { LoginData, loginSchema } from '@/types/types';
 
 const LoginForm = () => {
+  const { setIsLoggedIn: setIsLoggedin } = useIsLoggedInStore();
+
   const form = useForm<LoginData>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -33,6 +36,7 @@ const LoginForm = () => {
 
       if (response.ok) {
         console.log(response.message);
+        setIsLoggedin(true);
       } else {
         console.log(response.error);
       }
