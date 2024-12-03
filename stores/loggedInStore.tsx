@@ -7,6 +7,6 @@ type LoggedInStore = {
 };
 
 export const useIsLoggedInStore = create<LoggedInStore>((set) => ({
-  isLoggedIn: true,
+  isLoggedIn: false,
   setIsLoggedIn: (value) => set(() => ({ isLoggedIn: value })),
 }));

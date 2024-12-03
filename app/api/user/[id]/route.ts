@@ -9,8 +9,9 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   await dbConnect();
+  const newParams = await params;
   try {
-    const user = await Users.findById(params.id);
+    const user = await Users.findById(newParams.id);
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }

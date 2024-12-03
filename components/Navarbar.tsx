@@ -1,4 +1,5 @@
 'use client';
+import { logoutUser } from '@/services';
 import { useIsLoggedInStore } from '@/stores/loggedInStore';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -8,16 +9,14 @@ const Navarbar = () => {
   const { isLoggedIn, setIsLoggedIn } = useIsLoggedInStore();
   const router = useRouter();
 
+  console.log('isLoggedIn:', isLoggedIn);
+
   const handleSignOut = async () => {
     try {
-      const response = await fetch('/api/users/logout', {
-        method: 'POST',
-      });
+      const response = await logoutUser();
       if (response.ok) {
         setIsLoggedIn(false);
         router.push('/');
-      } else {
-        console.error('Failed to sign out');
       }
     } catch (error) {
       console.error('Error signing out:', error);
