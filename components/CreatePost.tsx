@@ -50,7 +50,6 @@ const CreatePost = () => {
           {...form.register('Title')}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="Title" type="text" />
               </FormControl>
@@ -63,7 +62,6 @@ const CreatePost = () => {
           {...form.register('Content')}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Content</FormLabel>
               <FormControl>
                 <Textarea {...field} placeholder="Content" />
               </FormControl>

@@ -15,9 +15,10 @@ export default function Home() {
     <div className="m-4">
       <Navarbar />
 
-      <div className="">
+      <div className="flex flex-col max-h-screen items-center p-24">
         {/* {!IsLoggedIn ? <RegisterForm /> : null} */}
         <CreatePost />
+        <Posts />
       </div>
     </div>
   );

@@ -21,6 +21,15 @@ export const getUsers = async () => {
   });
 };
 
+export const getUserById = async (id: string) => {
+  return await fetch(`/api/users/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
 export const loginUser = async (data: LoginData) => {
   return await fetch(`/api/users/login/`, {
     method: 'POST',
