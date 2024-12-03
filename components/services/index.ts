@@ -1,7 +1,9 @@
-import { UserData } from '@/app/types/types';
+import { LoginData, SignupData } from '@/app/types/types';
 
-export const createUser = async (data: UserData) => {
-  return await fetch('/api/users/', {
+const BASE_URL = process.env.API_BASE_URL;
+
+export const createUser = async (data: SignupData) => {
+  return await fetch(`/api/users/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -11,7 +13,7 @@ export const createUser = async (data: UserData) => {
 };
 
 export const getUsers = async () => {
-  return await fetch('/api/users/', {
+  return await fetch(`${BASE_URL}/api/users/`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -19,8 +21,23 @@ export const getUsers = async () => {
   });
 };
 
-export const loginUser = async () => {};
+export const loginUser = async (data: LoginData) => {
+  return await fetch(`/api/users/login/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+};
 
 export const createPost = async () => {};
 
 export const updatePost = async () => {};
+
+export const getAllPosts = async () => {
+  return await fetch(`${BASE_URL}/api/posts/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};

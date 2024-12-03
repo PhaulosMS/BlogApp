@@ -20,3 +20,16 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function GET() {
+  await dbConnect();
+  try {
+    const posts = await Posts.find({});
+    return NextResponse.json(posts);
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
+  }
+}

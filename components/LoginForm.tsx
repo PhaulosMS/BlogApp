@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -14,26 +15,32 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { createUser } from './services';
-import { SignupData, signUpSchema } from '@/app/types/types';
+import { loginUser } from './services';
+import { LoginData, loginSchema } from '@/app/types/types';
 
-const RegisterForm = () => {
-  const form = useForm<SignupData>({
-    resolver: zodResolver(signUpSchema),
+const LoginForm = () => {
+  const form = useForm<LoginData>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
-      Email: '',
       Username: '',
       Password: '',
-      ConfirmPassword: '',
     },
   });
 
-  const onSubmit = async (data: SignupData) => {
+  const onSubmit = async (data: LoginData) => {
     try {
-      const response = await (await createUser(data)).json();
+      const response = await (await loginUser(data)).json();
+
+      if (response.ok) {
+        console.log(response.message);
+      } else {
+        console.log(response.error);
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
     }
+
+    // change globalstate to logged in need to add zustand or contextprovider
   };
 
   return (
@@ -42,19 +49,6 @@ const RegisterForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="max-w-lg w-full flex flex-col gap-4"
       >
-        <FormField
-          control={form.control}
-          {...form.register('Email')}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email Address</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="Email Address" type="email" />
-              </FormControl>
-              <FormMessage className="text-bold text-red-600" />
-            </FormItem>
-          )}
-        ></FormField>
         <FormField
           control={form.control}
           {...form.register('Username')}
@@ -68,7 +62,6 @@ const RegisterForm = () => {
             </FormItem>
           )}
         ></FormField>
-
         <FormField
           control={form.control}
           {...form.register('Password')}
@@ -82,29 +75,9 @@ const RegisterForm = () => {
             </FormItem>
           )}
         ></FormField>
-        <FormField
-          control={form.control}
-          {...form.register('ConfirmPassword')}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  placeholder="ConfirmPassword"
-                  type="password"
-                />
-              </FormControl>
-              <FormMessage className="text-bold text-red-600" />
-            </FormItem>
-          )}
-        ></FormField>
-        <Button type="submit" className="w-full ">
-          Submit
-        </Button>
+        <Button type="submit">Login</Button>
       </form>
     </Form>
   );
 };
-
-export default RegisterForm;
+export default LoginForm;
