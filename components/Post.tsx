@@ -9,7 +9,7 @@ const Post = ({ OwnerId, Title, Content, createdAt, updatedAt }: PostData) => {
       <p>{Content}</p>
 
       <div className="flex justify-between">
-        <div>Author: {OwnerId}</div>
+        <div>Author: {OwnerId.toString()}</div>
         <div>{!isEdited ? createdAt : updatedAt}</div>
       </div>
     </div>

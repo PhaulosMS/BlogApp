@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { FieldValue, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -14,6 +14,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from './ui/textarea';
 import { PostData } from '@/app/types/types';
+import { createPost } from './services';
+import mongoose from 'mongoose';
 
 const CreatePost = () => {
   const form = useForm<PostData>({
@@ -23,7 +25,19 @@ const CreatePost = () => {
     },
   });
 
-  const onSubmit = (data: PostData) => {};
+  const onSubmit = async (data: PostData) => {
+    const response = await (
+      await createPost({
+        ...data,
+        OwnerId: '674cd7a37f3a0037f916de71',
+      })
+    ).json();
+    if (response.ok) {
+      console.log(response.message);
+    } else {
+      console.log(response.error);
+    }
+  };
 
   return (
     <Form {...form}>
