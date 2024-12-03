@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 export async function GET() {
   await dbConnect();
   try {
-    const posts = await Posts.find({});
+    const posts = await Posts.find({}).sort({ createdAt: -1 }).limit(10);
     return NextResponse.json(posts);
   } catch (error) {
     return NextResponse.json(

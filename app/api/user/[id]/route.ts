@@ -1,4 +1,4 @@
-// GET all users
+// GET user by ID
 
 import dbConnect from '@/lib/dbConnect';
 import Users from '@/models/Users';

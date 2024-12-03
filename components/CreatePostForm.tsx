@@ -15,9 +15,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from './ui/textarea';
 import { PostData } from '@/app/types/types';
 import { createPost } from './services';
-import mongoose from 'mongoose';
 
-const CreatePost = () => {
+const CreatePostForm = () => {
   const form = useForm<PostData>({
     defaultValues: {
       Title: '',
@@ -75,4 +74,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default CreatePostForm;

@@ -4,7 +4,7 @@ import RegisterForm from '@/components/RegisterForm';
 import Post from '@/components/Post';
 import Posts from '@/components/Posts';
 import LoginForm from '@/components/LoginForm';
-import CreatePost from '@/components/CreatePost';
+import CreatePostForm from '@/components/CreatePostForm';
 
 export default function Home() {
   const IsLoggedIn: boolean = false;
@@ -13,11 +13,7 @@ export default function Home() {
 
   return (
     <div className="m-4">
-      <Navarbar />
-
       <div className="flex flex-col max-h-screen items-center p-24">
-        {/* {!IsLoggedIn ? <RegisterForm /> : null} */}
-        <CreatePost />
         <Posts />
       </div>
     </div>
