@@ -9,8 +9,6 @@ const Navarbar = () => {
   const { isLoggedIn, setIsLoggedIn } = useIsLoggedInStore();
   const router = useRouter();
 
-  console.log('isLoggedIn:', isLoggedIn);
-
   const handleSignOut = async () => {
     try {
       const response = await logoutUser();
@@ -46,7 +44,10 @@ const Navarbar = () => {
             {isLoggedIn ? (
               <button onClick={handleSignOut}>Sign Out</button>
             ) : (
-              <Link href="/login">Sign In</Link>
+              // <Link href="/login">Sign In</Link>
+              <button onClick={() => setIsLoggedIn(true)}>
+                Sign In (REMOVE SOON)
+              </button>
             )}
           </li>
         </ul>

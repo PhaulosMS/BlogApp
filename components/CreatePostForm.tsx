@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import {
@@ -15,8 +15,10 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from './ui/textarea';
 import { PostData } from '@/types/types';
 import { createPost } from '../services';
+import { getCookie, decodeCookie } from '@/services/serverIndex';
 
 const CreatePostForm = () => {
+  const [userId, setUserId] = React.useState<string>('');
   const form = useForm<PostData>({
     defaultValues: {
       Title: '',
@@ -24,11 +26,24 @@ const CreatePostForm = () => {
     },
   });
 
+  useEffect(() => {
+    const fetchCookie = async () => {
+      const cookie = await getCookie('token');
+      if (cookie) {
+        const decoded = await decodeCookie(cookie);
+        if (decoded && 'userId' in decoded) {
+          setUserId(decoded.userId);
+        }
+      }
+    };
+    fetchCookie();
+  }, []);
+
   const onSubmit = async (data: PostData) => {
     const response = await (
       await createPost({
         ...data,
-        OwnerId: '674cd7a37f3a0037f916de71',
+        OwnerId: userId,
       })
     ).json();
     if (response.ok) {

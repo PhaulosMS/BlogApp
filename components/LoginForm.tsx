@@ -18,9 +18,11 @@ import {
 import { Input } from '@/components/ui/input';
 import { loginUser } from '../services';
 import { LoginData, loginSchema } from '@/types/types';
+import { useRouter } from 'next/navigation';
 
 const LoginForm = () => {
   const { setIsLoggedIn: setIsLoggedin } = useIsLoggedInStore();
+  const router = useRouter();
 
   const form = useForm<LoginData>({
     resolver: zodResolver(loginSchema),
@@ -32,13 +34,15 @@ const LoginForm = () => {
 
   const onSubmit = async (data: LoginData) => {
     try {
-      const response = await (await loginUser(data)).json();
+      const response = await loginUser(data);
+      const Data = await response.json();
 
       if (response.ok) {
-        console.log(response.message);
+        console.log(Data.message);
         setIsLoggedin(true);
+        // router.push('/');
       } else {
-        console.log(response.error);
+        console.log(Data.error);
       }
     } catch (error) {
       console.error('Error submitting form:', error);
