@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Model, mongo } from 'mongoose';
+import mongoose, { Document, Schema, Model } from 'mongoose';
 
 interface Post extends Document {
   OwnerId: mongoose.Types.ObjectId;

@@ -28,10 +28,15 @@ export const loginSchema = z.object({
 
 export type LoginData = z.infer<typeof loginSchema>;
 
-export type PostData = {
+export const postSchema = z.object({
+  Title: z.string().min(1, { message: 'Title cannot be empty' }),
+  Content: z.string().min(1, { message: 'Content cannot be empty' }),
+});
+
+export type PostDataType = {
   OwnerId: string;
-  Title: string;
-  Content: string;
   createdAt: string;
   updatedAt: string;
 };
+
+export type PostData = z.infer<typeof postSchema> & PostDataType;

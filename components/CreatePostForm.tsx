@@ -13,13 +13,15 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from './ui/textarea';
-import { PostData } from '@/types/types';
+import { PostData, postSchema } from '@/types/types';
 import { createPost } from '../services';
 import { getCookie, decodeCookie } from '@/services/serverIndex';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const CreatePostForm = () => {
-  const [userId, setUserId] = React.useState<string>('');
+  const [userId, setUserId] = React.useState<string>('e');
   const form = useForm<PostData>({
+    resolver: zodResolver(postSchema),
     defaultValues: {
       Title: '',
       Content: '',
@@ -31,7 +33,7 @@ const CreatePostForm = () => {
       const cookie = await getCookie('token');
       if (cookie) {
         const decoded = await decodeCookie(cookie);
-        if (decoded && 'userId' in decoded) {
+        if (typeof decoded !== 'string' && 'userId' in decoded) {
           setUserId(decoded.userId);
         }
       }
@@ -40,19 +42,15 @@ const CreatePostForm = () => {
   }, []);
 
   const onSubmit = async (data: PostData) => {
-    const response = await (
-      await createPost({
-        ...data,
-        OwnerId: userId,
-      })
-    ).json();
+    const response = await createPost({ ...data, OwnerId: userId });
+    const Data = await response.json();
     if (response.ok) {
-      console.log(response.message);
+      console.log(Data.message);
     } else {
-      console.log(response.error);
+      console.log(Data.error);
     }
+    form.reset();
   };
-
   return (
     <Form {...form}>
       <form

@@ -22,7 +22,7 @@ export const getUsers = async () => {
 };
 
 export const getUserById = async (id: string) => {
-  return await fetch(`${BASE_URL}/api/user/${id}`, {
+  return await fetch(`/api/user/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -63,4 +63,11 @@ export const getAllPosts = async () => {
       'Content-Type': 'application/json',
     },
   });
+};
+
+export const getPostByUserId = async (id: string) => {};
+
+export const getUsername = async (id: string) => {
+  const response = await (await getUserById(id)).json();
+  return response.Username || 'DELETED USER';
 };

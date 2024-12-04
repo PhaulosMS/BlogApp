@@ -44,10 +44,7 @@ const Navarbar = () => {
             {isLoggedIn ? (
               <button onClick={handleSignOut}>Sign Out</button>
             ) : (
-              // <Link href="/login">Sign In</Link>
-              <button onClick={() => setIsLoggedIn(true)}>
-                Sign In (REMOVE SOON)
-              </button>
+              <Link href="/login">Sign In</Link>
             )}
           </li>
         </ul>

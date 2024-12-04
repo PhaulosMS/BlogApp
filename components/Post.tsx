@@ -1,8 +1,23 @@
-import { getUserById } from '@/services';
+'use client';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { getUsername } from '@/services';
 import { PostData } from '@/types/types';
-import React from 'react';
 
 const Post = ({ OwnerId, Title, Content, createdAt, updatedAt }: PostData) => {
+  const [isEdited, setIsEdited] = useState(false);
+  const [username, setUsername] = useState('');
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+      const name = await getUsername(OwnerId);
+      setUsername(name);
+    };
+    setIsEdited(createdAt !== updatedAt);
+    fetchUsername();
+  }, [username]);
+
   const formatTime = (timestamp: string) => {
     const date = new Date(timestamp);
 
@@ -14,12 +29,6 @@ const Post = ({ OwnerId, Title, Content, createdAt, updatedAt }: PostData) => {
 
     return `${hours}:${minutes} ${day}/${month}/${year}`;
   };
-  const isEdited = createdAt !== updatedAt;
-
-  const getUsername = async (id: string) => {
-    const response = await (await getUserById(id)).json();
-    return response.Username || 'DELETED USER';
-  };
 
   return (
     <div className="bg-red-600 p-2 pb-0">
@@ -27,8 +36,13 @@ const Post = ({ OwnerId, Title, Content, createdAt, updatedAt }: PostData) => {
       <p className="text-center">{Content}</p>
 
       <div className="flex justify-between">
-        <div>Author: {getUsername(OwnerId)}</div>
-        <div>{!isEdited ? formatTime(createdAt) : formatTime(updatedAt)}</div>
+        <div onClick={() => router.push(`/profile/${username}`)}>
+          Author: {username}
+        </div>
+        <div>
+          {isEdited && <div>Last updated: {formatTime(updatedAt)}</div>}
+        </div>
+        <div>Published: {formatTime(createdAt)}</div>
       </div>
     </div>
   );

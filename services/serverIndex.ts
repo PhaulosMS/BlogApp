@@ -10,5 +10,5 @@ export const getCookie = async (name: string) => {
 };
 
 export const decodeCookie = async (cookie: RequestCookie) => {
-  return jwt.verify(cookie.value, process.env.JWT_SECRET!) as jwt.JwtPayload;
+  return jwt.verify(cookie.value, process.env.JWT_SECRET!);
 };

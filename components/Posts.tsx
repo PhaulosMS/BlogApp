@@ -8,16 +8,20 @@ const Posts = async () => {
 
   return (
     <div className="flex flex-col gap-4">
-      {posts.map((post: PostData, idx: number) => (
-        <Post
-          key={idx}
-          OwnerId={post.OwnerId}
-          Title={post.Title}
-          Content={post.Content}
-          createdAt={post.createdAt}
-          updatedAt={post.updatedAt}
-        />
-      ))}
+      {posts.length > 0 ? (
+        posts.map((post: PostData, idx: number) => (
+          <Post
+            key={idx}
+            OwnerId={post.OwnerId}
+            Title={post.Title}
+            Content={post.Content}
+            createdAt={post.createdAt}
+            updatedAt={post.updatedAt}
+          />
+        ))
+      ) : (
+        <div>No posts found</div>
+      )}
     </div>
   );
 };
